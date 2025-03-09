@@ -7,6 +7,10 @@ A Flutter web application for viewing and comparing student course schedules. Th
 - Toggle between class time and rest time views
 - Easily identify current day schedules
 
+This is my 2nd Flutter project. In this WebApp I'm trying to help me and my colleagues to find out which classes we have in a week and with whom.
+
+Hope you enjoy it, I damn sure did!
+
 ## Features
 
 - Responsive design that works on mobile and desktop
