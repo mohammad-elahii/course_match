@@ -1,16 +1,27 @@
-# course_match
+# CourseMatch
 
-A new Flutter project.
+A Flutter web application for viewing and comparing student course schedules. This app allows users to:
+
+- View student schedules for both odd and even weeks
+- Compare schedules between multiple students
+- Toggle between class time and rest time views
+- Easily identify current day schedules
+
+## Features
+
+- Responsive design that works on mobile and desktop
+- Color-coded student schedules for easy identification
+- Automatic detection of odd/even weeks based on semester start date
+- Visual highlighting of the current day
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project is built with Flutter. To run it locally:
 
-A few resources to get you started if this is your first Flutter project:
+1. Clone the repository
+2. Run `flutter pub get` to install dependencies
+3. Run `flutter run -d chrome` to launch in a browser
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Live Demo
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Visit the live demo at: https://mohammad-elahii.github.io/course_match/
