@@ -1,22 +1,16 @@
-name: Deploy to GitHub Pages
+name: Deploy Flutter Web App
 
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
       
@@ -27,14 +21,10 @@ jobs:
         run: flutter pub get
         
       - name: Build
-        run: |
-          flutter build web --release --base-href "/course_match/" --web-renderer html
-          # Create a .nojekyll file to prevent GitHub Pages from using Jekyll
-          touch build/web/.nojekyll
+        run: flutter build web --release --base-href "/course_match/"
         
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          folder: build/web
-          branch: gh-pages
-          clean: true 
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/web 
