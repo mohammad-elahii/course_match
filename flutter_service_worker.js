@@ -15,8 +15,8 @@ const RESOURCES = {"canvaskit/skwasm.js": "f2ad9363618c5f62e813740099a80e63",
 "canvaskit/chromium/canvaskit.wasm": "64a386c87532ae52ae041d18a32a3635",
 "canvaskit/chromium/canvaskit.js": "ba4a8ae1a65ff3ad81c6818fd47e348b",
 "canvaskit/chromium/canvaskit.js.symbols": "5a23598a2a8efd18ec3b60de5d28af8f",
-"index.html": "7a75bb583de8b6b5f1f79cb3d945ed3c",
-"/": "7a75bb583de8b6b5f1f79cb3d945ed3c",
+"index.html": "1f38091906ab8694025aaabeb3cb13a2",
+"/": "1f38091906ab8694025aaabeb3cb13a2",
 "assets/NOTICES": "bab683b172c2000a102b26f427dda088",
 "assets/assets/student_even_week.json": "2e3cb7735deb1f0be01faaa29a148f47",
 "assets/assets/logos/smoking.svg": "83e6f83684634ac2b546f2674f70f7de",
@@ -42,7 +42,7 @@ const RESOURCES = {"canvaskit/skwasm.js": "f2ad9363618c5f62e813740099a80e63",
 "manifest.json": "cf27a466a0f39b795a81ab7f6bb0d13d",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "transparent.html": "2d8aa68c82d445d55067e6d03ee1d2fd",
-"flutter_bootstrap.js": "17e5db33b82ab2c7630aa94b81673d3d"};
+"flutter_bootstrap.js": "cdf567d0517b3faeb96187aae2ae94b5"};
 // The application shell files that are downloaded before a service worker can
 // start.
 const CORE = ["main.dart.js",
