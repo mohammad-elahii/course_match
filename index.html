@@ -1,10 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CourseMatch - Redirect</title>
-    <meta http-equiv="refresh" content="0; URL=https://mohammad-elahii.github.io/course_match/index.html">
+    <title>CourseMatch</title>
+    <meta http-equiv="refresh" content="0; URL=https://mohammad-elahii.github.io/course_match/">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #FFFBF0;
+            color: #708240;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #708240;
+        }
+        .loading {
+            margin: 20px 0;
+        }
+        .spinner {
+            border: 4px solid rgba(0,0,0,0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: #708240;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        a {
+            color: #708240;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <p>If you are not redirected automatically, follow this <a href="https://mohammad-elahii.github.io/course_match/index.html">link to the app</a>.</p>
+    <div class="container">
+        <h1>CourseMatch</h1>
+        <p>Redirecting to the CourseMatch application...</p>
+        <div class="loading">
+            <div class="spinner"></div>
+        </div>
+        <p>If you are not redirected automatically, <a href="https://mohammad-elahii.github.io/course_match/">click here</a>.</p>
+    </div>
 </body>
 </html> 

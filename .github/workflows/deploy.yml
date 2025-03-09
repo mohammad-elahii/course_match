@@ -27,7 +27,7 @@ jobs:
         run: flutter pub get
         
       - name: Build
-        run: flutter build web --base-href "/"
+        run: flutter build web --base-href "/course_match/"
         
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
