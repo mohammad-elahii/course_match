@@ -21,9 +21,9 @@ class _SchedulePageState extends State<SchedulePage> {
 
   // Method to get current date - can be modified for testing
   DateTime getCurrentDate() {
-    // For testing, return a fixed date
-    return DateTime(2025, 3, 9); // Current fixed date
-    // return DateTime.now(); // Use this for production
+    // Return the actual current date
+    return DateTime.now(); // Use current date
+    // For testing, use a fixed date: return DateTime(2025, 3, 9);
   }
 
   final List<String> days = [
