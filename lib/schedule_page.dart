@@ -18,15 +18,8 @@ class _SchedulePageState extends State<SchedulePage> {
   bool showRestTime = false;
   late bool isOddWeek;
   
-  // Updated semester start date to align with current week 7 (odd)
-  // Calculating back from today to make week 7 (odd)
-  DateTime semesterStartDate = DateTime.now().subtract(Duration(days: DateTime.now().weekday + 6 * 7));
-
-  // Override isOddWeek for a specific week number (use this if automatic calculation isn't accurate)
-  bool overrideWeekType() {
-    // We're currently in week 7 which is odd
-    return true; // true for odd, false for even
-  }
+  // Original semester start date
+  DateTime semesterStartDate = DateTime(2025, 2, 8); 
 
   DateTime getCurrentDate() {
     return DateTime.now();
@@ -41,26 +34,33 @@ class _SchedulePageState extends State<SchedulePage> {
     'Thursday'
   ];
 
+  // Calculate the week number with a correction of -2 weeks for holidays
   bool determineWeekType() {
-    // Use the override method to force the correct week type
-    return overrideWeekType();
+    final today = getCurrentDate();
+    final difference = today.difference(semesterStartDate).inDays;
+    final calculatedWeekNumber = (difference / 7).ceil();
     
-    // Original calculation (commented out)
-    // final today = getCurrentDate();
-    // final difference = today.difference(semesterStartDate).inDays;
-    // final weekNumber = (difference / 7).ceil();
-    // return weekNumber.isOdd; // true for odd weeks, false for even weeks
+    // Adjust for the 2-week holiday period
+    final correctedWeekNumber = calculatedWeekNumber - 2;
+    
+    // Week number should be positive
+    final weekNumber = correctedWeekNumber > 0 ? correctedWeekNumber : 1;
+    
+    return weekNumber.isOdd; // true for odd weeks, false for even weeks
   }
 
   String getCurrentWeekType() {
-    // Hardcoded to correctly show week 7
-    return '${isOddWeek ? "Odd" : "Even"} Week (Week 7)';
+    final today = getCurrentDate();
+    final difference = today.difference(semesterStartDate).inDays;
+    final calculatedWeekNumber = (difference / 7).floor() + 1;
     
-    // Original calculation (commented out)
-    // final today = getCurrentDate();
-    // final difference = today.difference(semesterStartDate).inDays;
-    // final weekNumber = (difference / 7).floor() + 1;
-    // return '${isOddWeek ? "Odd" : "Even"} Week (Week $weekNumber)';
+    // Adjust for the 2-week holiday period
+    final correctedWeekNumber = calculatedWeekNumber - 2;
+    
+    // Week number should be positive
+    final weekNumber = correctedWeekNumber > 0 ? correctedWeekNumber : 1;
+    
+    return '${isOddWeek ? "Odd" : "Even"} Week (Week $weekNumber)';
   }
 
   @override
