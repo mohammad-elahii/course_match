@@ -21,6 +21,12 @@ class _SchedulePageState extends State<SchedulePage> {
   // Original semester start date
   DateTime semesterStartDate = DateTime(2025, 2, 8); 
 
+  // Override isOddWeek for a specific week number (use this if automatic calculation isn't accurate)
+  bool overrideWeekType() {
+    // We're currently in week 7 which is odd
+    return true; // true for odd, false for even
+  }
+
   DateTime getCurrentDate() {
     return DateTime.now();
   }
@@ -334,9 +340,9 @@ class _SchedulePageState extends State<SchedulePage> {
                             ),
                             SizedBox(width: screenWidth * 0.02),
                             SvgPicture.asset(
-                              'assets/logos/smoking.svg',
-                              width: screenWidth * 0.03,
-                              height: screenWidth * 0.03,
+                              'assets/logos/fun.svg',
+                              width: screenWidth * 0.05,
+                              height: screenWidth * 0.05,
                             ),
                           ],
                         ),
