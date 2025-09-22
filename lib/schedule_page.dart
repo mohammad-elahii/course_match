@@ -169,6 +169,19 @@ class _SchedulePageState extends State<SchedulePage> {
     });
   }
 
+  // Returns the current time slot index (1-6) or null if not in any slot
+  int? getCurrentTimeSlotIndex() {
+    final now = DateTime.now();
+    final hour = now.hour;
+    if (hour >= 8 && hour < 10) return 1;
+    if (hour >= 10 && hour < 12) return 2;
+    if (hour >= 12 && hour < 14) return 3;
+    if (hour >= 14 && hour < 16) return 4;
+    if (hour >= 16 && hour < 18) return 5;
+    if (hour >= 18 && hour < 20) return 6;
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -370,6 +383,7 @@ class _SchedulePageState extends State<SchedulePage> {
     double fontSize,
   ) {
     final isToday = isCurrentDay(day);
+    final currentSlot = isToday ? getCurrentTimeSlotIndex() : null;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
@@ -400,6 +414,9 @@ class _SchedulePageState extends State<SchedulePage> {
             ...List.generate(timeSlots.length * 2 - 1, (index) {
               bool isRestSlot = index.isOdd;
               int timeIndex = index ~/ 2 + 1;
+
+              // Pointer: Only for current day, current slot, and not a rest slot
+              bool showPointer = isToday && !isRestSlot && currentSlot == timeIndex;
 
               if (isRestSlot && showRestTime) {
                 return Container(
@@ -440,35 +457,47 @@ class _SchedulePageState extends State<SchedulePage> {
                   ),
                 );
               } else if (!isRestSlot) {
-                return Container(
-                  width: timeSlotWidth,
-                  height: timeSlotHeight,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey.withOpacity(0.3)),
-                  ),
-                  child: Center(
-                    child: Wrap(
-                      spacing: 4,
-                      runSpacing: 4,
-                      children: getFilteredStudents().where((student) {
-                        return selectedStudents.isEmpty ||
-                            selectedStudents.contains(student['name']);
-                      }).map((student) {
-                        final schedule = student['schedule'][day] as List<dynamic>;
-                        final hasClass = schedule.contains(timeIndex);
-                        return Container(
-                          width: dotSize,
-                          height: dotSize,
-                          decoration: BoxDecoration(
-                            color: hasClass
-                                ? getColorFromString(student['color']).withOpacity(showRestTime ? 0.3 : 1.0)
-                                : Colors.transparent,
-                            shape: BoxShape.circle,
-                          ),
-                        );
-                      }).toList(),
+                return Stack(
+                  alignment: Alignment.topCenter,
+                  children: [
+                    Container(
+                      width: timeSlotWidth,
+                      height: timeSlotHeight,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey.withOpacity(0.3)),
+                      ),
+                      child: Center(
+                        child: Wrap(
+                          spacing: 4,
+                          runSpacing: 4,
+                          children: getFilteredStudents().where((student) {
+                            return selectedStudents.isEmpty ||
+                                selectedStudents.contains(student['name']);
+                          }).map((student) {
+                            final schedule = student['schedule'][day] as List<dynamic>;
+                            final hasClass = schedule.contains(timeIndex);
+                            return Container(
+                              width: dotSize,
+                              height: dotSize,
+                              decoration: BoxDecoration(
+                                color: hasClass
+                                    ? getColorFromString(student['color']).withOpacity(showRestTime ? 0.3 : 1.0)
+                                    : Colors.transparent,
+                                shape: BoxShape.circle,
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ),
                     ),
-                  ),
+                    if (showPointer)
+                      Positioned(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        child: Icon(Icons.arrow_drop_up, color: Color(0xFF708240), size: fontSize * 2),
+                      ),
+                  ],
                 );
               } else {
                 return Container(
