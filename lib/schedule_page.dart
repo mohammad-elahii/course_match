@@ -384,6 +384,9 @@ class _SchedulePageState extends State<SchedulePage> {
   ) {
     final isToday = isCurrentDay(day);
     final currentSlot = isToday ? getCurrentTimeSlotIndex() : null;
+    if (isToday) {
+      debugPrint('Current slot for $day: $currentSlot');
+    }
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
@@ -458,7 +461,7 @@ class _SchedulePageState extends State<SchedulePage> {
                 );
               } else if (!isRestSlot) {
                 return Stack(
-                  alignment: Alignment.topCenter,
+                  alignment: Alignment.bottomCenter,
                   children: [
                     Container(
                       width: timeSlotWidth,
@@ -492,10 +495,10 @@ class _SchedulePageState extends State<SchedulePage> {
                     ),
                     if (showPointer)
                       Positioned(
-                        top: 0,
+                        bottom: -fontSize * 1.2,
                         left: 0,
                         right: 0,
-                        child: Icon(Icons.arrow_drop_up, color: Color(0xFF708240), size: fontSize * 2),
+                        child: Icon(Icons.arrow_drop_down, color: Colors.grey[800], size: fontSize * 2.5),
                       ),
                   ],
                 );
