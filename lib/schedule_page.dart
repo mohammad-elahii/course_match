@@ -18,13 +18,14 @@ class _SchedulePageState extends State<SchedulePage> {
   bool showRestTime = false;
   late bool isOddWeek;
 
-  // Set semester start date to next week's Saturday
+  // Always set semester start date to next Saturday
   DateTime getNextSaturday() {
     final now = DateTime.now();
-    // Days until next Saturday (6 = Saturday)
     int daysUntilSaturday = (6 - now.weekday + 7) % 7;
     if (daysUntilSaturday == 0) daysUntilSaturday = 7; // Always next week
-    return DateTime(now.year, now.month, now.day).add(Duration(days: daysUntilSaturday));
+    final nextSat = DateTime(now.year, now.month, now.day).add(Duration(days: daysUntilSaturday));
+    debugPrint('Semester start date set to: ' + nextSat.toString());
+    return nextSat;
   }
   late DateTime semesterStartDate;
 
@@ -55,13 +56,9 @@ class _SchedulePageState extends State<SchedulePage> {
     final today = getCurrentDate();
     final difference = today.difference(semesterStartDate).inDays;
     final calculatedWeekNumber = (difference / 7).ceil();
-    
-    // Adjust for the 2-week holiday period
-    final correctedWeekNumber = calculatedWeekNumber - 2;
-    
-    // Week number should be positive
-    final weekNumber = correctedWeekNumber > 0 ? correctedWeekNumber : 1;
-    
+    // No holiday correction now, just use calculatedWeekNumber
+    final weekNumber = calculatedWeekNumber > 0 ? calculatedWeekNumber : 1;
+    debugPrint('Current week number: $weekNumber');
     return weekNumber.isOdd; // true for odd weeks, false for even weeks
   }
 
@@ -69,13 +66,7 @@ class _SchedulePageState extends State<SchedulePage> {
     final today = getCurrentDate();
     final difference = today.difference(semesterStartDate).inDays;
     final calculatedWeekNumber = (difference / 7).floor() + 1;
-    
-    // Adjust for the 2-week holiday period
-    final correctedWeekNumber = calculatedWeekNumber - 2;
-    
-    // Week number should be positive
-    final weekNumber = correctedWeekNumber > 0 ? correctedWeekNumber : 1;
-    
+    final weekNumber = calculatedWeekNumber > 0 ? calculatedWeekNumber : 1;
     return '${isOddWeek ? "Odd" : "Even"} Week (Week $weekNumber)';
   }
 
@@ -246,158 +237,164 @@ class _SchedulePageState extends State<SchedulePage> {
         ),
         backgroundColor: Colors.transparent,
       ),
-      body: Transform.scale(
-        scale: zoomLevel,
-        alignment: Alignment.topCenter,
-        child: students.isEmpty
-            ? const Center(child: CircularProgressIndicator())
-            : SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(screenWidth * 0.04),
-                      child: Column(
-                        children: [
-                          // Current week indicator
-                          Center(
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: screenWidth * 0.04,
-                                vertical: screenHeight * 0.01,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Color(0xFF708240).withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(screenWidth * 0.05),
-                              ),
-                              child: Text(
-                                getCurrentWeekType(),
-                                style: TextStyle(
-                                  color: Color(0xFF708240),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: fontSize,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: screenHeight * 0.02),
-                          // Student selection
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: getFilteredStudents().map((student) => Padding(
-                                padding: EdgeInsets.all(screenWidth * 0.01),
-                                child: InkWell(
-                                  onTap: () => toggleStudentSelection(student['name']),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        width: studentIconSize,
-                                        height: studentIconSize,
-                                        decoration: BoxDecoration(
-                                          color: getColorFromString(student['color']),
-                                          shape: BoxShape.circle,
-                                          border: selectedStudents.contains(student['name'])
-                                              ? Border.all(color: Colors.black, width: screenWidth * 0.001)
-                                              : null,
-                                        ),
-                                      ),
-                                      SizedBox(width: screenWidth * 0.01),
-                                      Text(
-                                        student['name'],
-                                        style: TextStyle(
-                                          fontWeight: selectedStudents.contains(student['name'])
-                                              ? FontWeight.bold
-                                              : FontWeight.normal,
-                                          fontSize: studentNameFontSize,
-                                        ),
-                                      ),
-                                    ],
+      body: Center(
+        child: Transform.scale(
+          scale: zoomLevel,
+          alignment: Alignment.topCenter,
+          child: Container(
+            width: screenWidth,
+            child: students.isEmpty
+                ? const Center(child: CircularProgressIndicator())
+                : SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(screenWidth * 0.04),
+                          child: Column(
+                            children: [
+                              // Current week indicator
+                              Center(
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: screenWidth * 0.04,
+                                    vertical: screenHeight * 0.01,
                                   ),
-                                ),
-                              )).toList(),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    // Schedule table
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Padding(
-                        padding: EdgeInsets.all(screenWidth * 0.04),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                SizedBox(width: timeSlotWidth * 0.8),
-                                ...timeSlots.map((time) => SizedBox(
-                                  width: timeSlotWidth,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFF708240).withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(screenWidth * 0.05),
+                                  ),
                                   child: Text(
-                                    time,
+                                    getCurrentWeekType(),
                                     style: TextStyle(
+                                      color: Color(0xFF708240),
                                       fontWeight: FontWeight.bold,
                                       fontSize: fontSize,
                                     ),
-                                    textAlign: TextAlign.center,
                                   ),
-                                )),
-                              ],
-                            ),
-                            SizedBox(height: screenHeight * 0.02),
-                            ...days.map((day) => _buildDayRow(
-                              day,
-                              timeSlotWidth,
-                              timeSlotHeight,
-                              restSlotWidth,
-                              dotSize,
-                              restDotSize,
-                              fontSize,
-                            )),
-                          ],
-                        ),
-                      ),
-                    ),
-                    // Bottom switch control
-                    Container(
-                      padding: EdgeInsets.all(screenWidth * 0.02),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                'assets/logos/class.svg',
-                                width: screenWidth * 0.03,
-                                height: screenWidth * 0.03,
-                              ),
-                              SizedBox(width: screenWidth * 0.02),
-                              Transform.scale(
-                                scale: 0.8,
-                                child: Switch(
-                                  value: showRestTime,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      showRestTime = value;
-                                    });
-                                  },
-                                  activeColor: Color(0xFF708240),
                                 ),
                               ),
-                              SizedBox(width: screenWidth * 0.02),
-                              SvgPicture.asset(
-                                'assets/logos/fun.svg',
-                                width: screenWidth * 0.05,
-                                height: screenWidth * 0.05,
+                              SizedBox(height: screenHeight * 0.02),
+                              // Student selection
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: getFilteredStudents().map((student) => Padding(
+                                    padding: EdgeInsets.all(screenWidth * 0.01),
+                                    child: InkWell(
+                                      onTap: () => toggleStudentSelection(student['name']),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            width: studentIconSize,
+                                            height: studentIconSize,
+                                            decoration: BoxDecoration(
+                                              color: getColorFromString(student['color']),
+                                              shape: BoxShape.circle,
+                                              border: selectedStudents.contains(student['name'])
+                                                  ? Border.all(color: Colors.black, width: screenWidth * 0.001)
+                                                  : null,
+                                            ),
+                                          ),
+                                          SizedBox(width: screenWidth * 0.01),
+                                          Text(
+                                            student['name'],
+                                            style: TextStyle(
+                                              fontWeight: selectedStudents.contains(student['name'])
+                                                  ? FontWeight.bold
+                                                  : FontWeight.normal,
+                                              fontSize: studentNameFontSize,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )).toList(),
+                                ),
                               ),
                             ],
                           ),
-                        ],
-                      ),
+                        ),
+                        // Schedule table
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Padding(
+                            padding: EdgeInsets.all(screenWidth * 0.04),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    SizedBox(width: timeSlotWidth * 0.8),
+                                    ...timeSlots.map((time) => SizedBox(
+                                      width: timeSlotWidth,
+                                      child: Text(
+                                        time,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: fontSize,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    )),
+                                  ],
+                                ),
+                                SizedBox(height: screenHeight * 0.02),
+                                ...days.map((day) => _buildDayRow(
+                                  day,
+                                  timeSlotWidth,
+                                  timeSlotHeight,
+                                  restSlotWidth,
+                                  dotSize,
+                                  restDotSize,
+                                  fontSize,
+                                )),
+                              ],
+                            ),
+                          ),
+                        ),
+                        // Bottom switch control
+                        Container(
+                          padding: EdgeInsets.all(screenWidth * 0.02),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset(
+                                    'assets/logos/class.svg',
+                                    width: screenWidth * 0.03,
+                                    height: screenWidth * 0.03,
+                                  ),
+                                  SizedBox(width: screenWidth * 0.02),
+                                  Transform.scale(
+                                    scale: 0.8,
+                                    child: Switch(
+                                      value: showRestTime,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          showRestTime = value;
+                                        });
+                                      },
+                                      activeColor: Color(0xFF708240),
+                                    ),
+                                  ),
+                                  SizedBox(width: screenWidth * 0.02),
+                                  SvgPicture.asset(
+                                    'assets/logos/fun.svg',
+                                    width: screenWidth * 0.05,
+                                    height: screenWidth * 0.05,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+          ),
+        ),
       ),
     );
   }
