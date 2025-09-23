@@ -496,7 +496,7 @@ class _SchedulePageState extends State<SchedulePage> {
                     ),
                     if (showPointer)
                       Positioned(
-                        bottom: -fontSize * 1.2,
+                        top: -fontSize * 1,
                         left: 0,
                         right: 0,
                         child: Icon(Icons.arrow_drop_down, color: Colors.grey[800], size: fontSize * 2.5),
