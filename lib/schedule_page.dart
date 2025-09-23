@@ -213,12 +213,10 @@ class _SchedulePageState extends State<SchedulePage> {
               tooltip: 'Dark mode',
               icon: Icon(Icons.dark_mode, color: Color(0xFF708240)),
               onPressed: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => const DarkSchedulePage(title: 'CourseMatch'),
-                  ),
-                );
+                  MaterialPageRoute(builder: (_) => const DarkSchedulePage(title: 'CourseMatch')),
+                );;
               },
             ),
           ],

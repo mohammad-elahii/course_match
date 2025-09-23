@@ -195,7 +195,7 @@ class _SchedulePageState extends State<DarkSchedulePage> {
     final studentNameFontSize = screenWidth * 0.015; // 1.5% of screen width for student names
 
     return Scaffold(
-      backgroundColor: Color(0xFF37353E),
+      backgroundColor: Color(0xFF070707),
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -203,7 +203,7 @@ class _SchedulePageState extends State<DarkSchedulePage> {
             Text(
               'CourseMatch',
               style: TextStyle(
-                color: Color(0xFF715A5A),
+                color: Color(0xFFc297b8),
                 fontFamily: 'Sableklish',
                 fontSize: screenWidth * 0.035,
               ),
@@ -211,12 +211,11 @@ class _SchedulePageState extends State<DarkSchedulePage> {
             SizedBox(width: 12),
             IconButton(
               tooltip: 'Light mode',
-              icon: Icon(Icons.light_mode, color: Color(0xFF715A5A)),
+              icon: Icon(Icons.light_mode, color: Color(0xFFc297b8)),
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => const SchedulePage(title: 'CourseMatch'),
-                  ),
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (_) => const SchedulePage(title: 'CourseMatch')),
                 );
               },
             ),
@@ -246,13 +245,13 @@ class _SchedulePageState extends State<DarkSchedulePage> {
                           vertical: screenHeight * 0.01,
                         ),
                         decoration: BoxDecoration(
-                          color: Color(0xFFD3DAD9).withOpacity(0.1),
+                          color: Color(0xFFc297b8).withOpacity(0.1),
                           borderRadius: BorderRadius.circular(screenWidth * 0.05),
                         ),
                         child: Text(
                           getCurrentWeekType(),
                           style: TextStyle(
-                            color: Color(0xFFD3DAD9),
+                            color: Color(0xFFde89be),
                             fontWeight: FontWeight.bold,
                             fontSize: fontSize,
                           ),
@@ -277,7 +276,7 @@ class _SchedulePageState extends State<DarkSchedulePage> {
                                     color: getColorFromString(student['color']),
                                     shape: BoxShape.circle,
                                     border: selectedStudents.contains(student['name'])
-                                        ? Border.all(color: Color(0xFFD3DAD9), width: screenWidth * 0.005)
+                                        ? Border.all(color: Color(0xFFc297b8), width: screenWidth * 0.003)
                                         : null,
                                   ),
                                 ),
@@ -285,7 +284,7 @@ class _SchedulePageState extends State<DarkSchedulePage> {
                                 Text(
                                   student['name'],
                                   style: TextStyle(
-                                    color: Color(0xFFD3DAD9),
+                                    color: Color(0xFFde89be),
                                     fontWeight: selectedStudents.contains(student['name'])
                                         ? FontWeight.bold
                                         : FontWeight.normal,
@@ -317,7 +316,7 @@ class _SchedulePageState extends State<DarkSchedulePage> {
                             child: Text(
                               time,
                               style: TextStyle(
-                                color: Color(0xFFD3DAD9),
+                                color: Color(0xFFc297b8),
                                 fontWeight: FontWeight.bold,
                                 fontSize: fontSize,
                               ),
@@ -352,6 +351,7 @@ class _SchedulePageState extends State<DarkSchedulePage> {
                           'assets/logos/class.svg',
                           width: screenWidth * 0.03,
                           height: screenWidth * 0.03,
+                          color: Color(0xFFde89be),
                         ),
                         SizedBox(width: screenWidth * 0.02),
                         Transform.scale(
@@ -363,12 +363,13 @@ class _SchedulePageState extends State<DarkSchedulePage> {
                                 showRestTime = value;
                               });
                             },
-                            activeColor: Color(0xFFD3DAD9),
+                            activeColor: Color(0xFFde89be),
                           ),
                         ),
                         SizedBox(width: screenWidth * 0.02),
                         SvgPicture.asset(
                           'assets/logos/fun.svg',
+                          color: Color(0xFFde89be),
                           width: screenWidth * 0.05,
                           height: screenWidth * 0.05,
                         ),
@@ -411,7 +412,7 @@ class _SchedulePageState extends State<DarkSchedulePage> {
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
-              color: Color(0xFFD3DAD9).withOpacity(0.5),
+              color: Color(0xFFfdcff3).withOpacity(0.5),
               blurRadius: 8,
               spreadRadius: 1,
             )
@@ -425,7 +426,7 @@ class _SchedulePageState extends State<DarkSchedulePage> {
                 day,
                 style: TextStyle(
                   fontWeight: isToday ? FontWeight.bold : FontWeight.normal,
-                  color: isToday ? Color(0xFFD3DAD9) : Color(0xFFD3DAD9).withOpacity(0.5),
+                  color: isToday ? Color(0xFFfdcff3) : Color(0xFFfdcff3).withOpacity(0.5),
                   fontSize: fontSize,
                 ),
               ),
@@ -446,7 +447,7 @@ class _SchedulePageState extends State<DarkSchedulePage> {
                     color: Colors.grey.withOpacity(0.1),
                     boxShadow: isToday ? [
                       BoxShadow(
-                        color: Color(0xFFD3DAD9).withOpacity(0.8),
+                        color: Color(0xFFfdcff3).withOpacity(0.8),
                         blurRadius: 4,
                         spreadRadius: 0,
                       )
@@ -483,7 +484,7 @@ class _SchedulePageState extends State<DarkSchedulePage> {
                       width: timeSlotWidth,
                       height: timeSlotHeight,
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey.withOpacity(0.3)),
+                        border: Border.all(color: Color(0xFFfdcff3).withOpacity(0.3)),
                       ),
                       child: Center(
                         child: Wrap(
@@ -514,7 +515,7 @@ class _SchedulePageState extends State<DarkSchedulePage> {
                         top: -fontSize * 1,
                         left: 0,
                         right: 0,
-                        child: Icon(Icons.arrow_drop_down, color: Color(0xFFD3DAD9), size: fontSize * 2.5),
+                        child: Icon(Icons.arrow_drop_down, color: Color(0xFFfdcff3), size: fontSize * 2.5),
                       ),
                   ],
                 );
