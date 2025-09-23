@@ -29,14 +29,7 @@ class _SchedulePageState extends State<SchedulePage> {
   }
   late DateTime semesterStartDate;
 
-  // Zoom feature
-  double zoomLevel = 1.0;
-  
-  // Override isOddWeek for a specific week number (use this if automatic calculation isn't accurate)
-  bool overrideWeekType() {
-    // We're currently in week 7 which is odd
-    return true; // true for odd, false for even
-  }
+  // Remove zoomLevel and zoom controls
 
   DateTime getCurrentDate() {
     return DateTime.now();
@@ -214,33 +207,16 @@ class _SchedulePageState extends State<SchedulePage> {
                 fontSize: screenWidth * 0.035,
               ),
             ),
-            SizedBox(width: 16),
-            // Zoom controls
-            IconButton(
-              icon: Icon(Icons.zoom_out),
-              onPressed: () {
-                setState(() {
-                  zoomLevel = (zoomLevel - 0.1).clamp(0.5, 2.0);
-                });
-              },
-            ),
-            Text('${(zoomLevel * 100).toInt()}%', style: TextStyle(color: Color(0xFF708240))),
-            IconButton(
-              icon: Icon(Icons.zoom_in),
-              onPressed: () {
-                setState(() {
-                  zoomLevel = (zoomLevel + 0.1).clamp(0.5, 2.0);
-                });
-              },
-            ),
           ],
         ),
         backgroundColor: Colors.transparent,
       ),
       body: Center(
-        child: Transform.scale(
-          scale: zoomLevel,
-          alignment: Alignment.topCenter,
+        child: InteractiveViewer(
+          minScale: 0.5,
+          maxScale: 3.0,
+          panEnabled: true,
+          scaleEnabled: true,
           child: Container(
             width: screenWidth,
             child: students.isEmpty
