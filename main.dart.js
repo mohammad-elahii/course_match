@@ -35585,43 +35585,44 @@ if(s>=18&&s<20)return 6
 return null},
 S(a4){var s,r,q,p,o,n,m,l,k,j,i,h,g=this,f=null,e=4290942904,d=4292774334,c=t.w,b=A.cj(a4,f,c).w.a.a,a=A.cj(a4,f,c).w.a.b,a0=b*0.12,a1=a*0.06,a2=a1*0.13,a3=b*0.017
 c=A.a4(4278650631)
-s=t.E
-r=A.ahm(B.z,A.hu(A.c([A.jv("CourseMatch",A.et(f,f,A.a4(e),f,f,f,f,f,"Sableklish",f,f,b*0.035,f,f,f,f,f,!0,f,f,f,f,f,f,f,f),f),A.d2(f,f,12),A.aeI(f,f,A.DQ(B.E3,A.a4(e),f,f),f,f,new A.aay(a4),f,f,"Light mode")],s),B.T,B.dk,B.as))
+s=b*0.03
+r=t.E
+q=A.ahm(B.z,A.hu(A.c([A.jv("CourseMatch",A.et(f,f,A.a4(e),f,f,f,f,f,"Sableklish",f,f,b*0.035,f,f,f,f,f,!0,f,f,f,f,f,f,f,f),f),A.d2(f,f,8),A.aeI(f,f,A.DQ(B.E3,A.a4(e),f,s),f,f,new A.aay(a4),f,f,"Light mode")],r),B.T,B.dk,B.as))
 if(g.d.length===0)s=B.ko
-else{q=b*0.04
-p=a*0.01
-o=A.a4(e)
-o=A.af(B.c.a_(25.5),o.u()>>>16&255,o.u()>>>8&255,o.u()&255)
-n=b*0.05
-m=A.rA(n)
-l=Date.now()
-k=g.x
+else{p=b*0.04
+o=a*0.01
+n=A.a4(e)
+n=A.af(B.c.a_(25.5),n.u()>>>16&255,n.u()>>>8&255,n.u()&255)
+m=b*0.05
+l=A.rA(m)
+k=Date.now()
+j=g.x
+j===$&&A.a()
+i=B.c.iP(B.f.cZ(new A.dc(k,0,!1).d2(j).a,864e8)/7)+1
+h=i>0?i:1
+k=g.w
 k===$&&A.a()
-j=B.c.iP(B.f.cZ(new A.dc(l,0,!1).d2(k).a,864e8)/7)+1
-i=j>0?j:1
-l=g.w
-l===$&&A.a()
-l=l?"Odd":"Even"
-p=A.jW(A.dw(A.jv(l+" Week (Week "+i+")",A.et(f,f,A.a4(d),f,f,f,f,f,f,f,f,a3,f,f,B.aw,f,f,!0,f,f,f,f,f,f,f,f),f),new A.ca(o,f,f,m,f,f,B.ao),f,f,new A.bh(q,p,q,p),f),f,f)
-m=a*0.02
-o=A.d2(f,m,f)
-l=g.ks()
-k=A.X(l).h("a2<1,d0>")
-l=A.P(new A.a2(l,new A.aaz(g,b,b*0.025,b*0.015),k),k.h("al.E"))
-p=A.lN(A.c([p,o,A.wK(A.hu(l,B.T,B.a_,B.as),B.aI)],s),B.T,B.a_)
-o=A.c([A.d2(f,f,a0*0.8)],s)
-l=g.e
-B.b.B(o,new A.a2(l,new A.aaA(a0,a3),A.X(l).h("a2<1,j>")))
-m=A.c([A.hu(o,B.T,B.a_,B.as),A.d2(f,m,f)],s)
-o=g.y
-B.b.B(m,new A.a2(o,new A.aaB(g,a0,a1,a0*0.35,a2,a2*0.7,a3),A.X(o).h("a2<1,j>")))
-m=A.wK(new A.d0(new A.bh(q,q,q,q),A.lN(m,B.bv,B.a_),f),B.aI)
-o=b*0.02
-l=b*0.03
-l=A.a3v("assets/logos/class.svg",A.a4(d),l,l)
-k=A.d2(f,f,o)
-h=g.r
-s=A.wK(A.lN(A.c([new A.d0(new A.bh(q,q,q,q),p,f),m,A.dw(A.lN(A.c([A.hu(A.c([l,k,A.akB(A.akm(A.a4(d),new A.aaC(g),h),0.8),A.d2(f,f,o),A.a3v("assets/logos/fun.svg",A.a4(d),n,n)],s),B.T,B.dk,B.as)],s),B.T,B.a_),f,f,f,new A.bh(o,o,o,o),f)],s),B.T,B.a_),B.bG)}return A.ajZ(r,c,A.aiM(s,3,0.5,!0,!0))},
+k=k?"Odd":"Even"
+o=A.jW(A.dw(A.jv(k+" Week (Week "+h+")",A.et(f,f,A.a4(d),f,f,f,f,f,f,f,f,a3,f,f,B.aw,f,f,!0,f,f,f,f,f,f,f,f),f),new A.ca(n,f,f,l,f,f,B.ao),f,f,new A.bh(p,o,p,o),f),f,f)
+l=a*0.02
+n=A.d2(f,l,f)
+k=g.ks()
+j=A.X(k).h("a2<1,d0>")
+k=A.P(new A.a2(k,new A.aaz(g,b,b*0.025,b*0.015),j),j.h("al.E"))
+o=A.lN(A.c([o,n,A.wK(A.hu(k,B.T,B.a_,B.as),B.aI)],r),B.T,B.a_)
+n=A.c([A.d2(f,f,a0*0.8)],r)
+k=g.e
+B.b.B(n,new A.a2(k,new A.aaA(a0,a3),A.X(k).h("a2<1,j>")))
+l=A.c([A.hu(n,B.T,B.a_,B.as),A.d2(f,l,f)],r)
+n=g.y
+B.b.B(l,new A.a2(n,new A.aaB(g,a0,a1,a0*0.35,a2,a2*0.7,a3),A.X(n).h("a2<1,j>")))
+l=A.wK(new A.d0(new A.bh(p,p,p,p),A.lN(l,B.bv,B.a_),f),B.aI)
+n=b*0.02
+s=A.a3v("assets/logos/class.svg",A.a4(d),s,s)
+k=A.d2(f,f,n)
+j=g.r
+r=A.wK(A.lN(A.c([new A.d0(new A.bh(p,p,p,p),o,f),l,A.dw(A.lN(A.c([A.hu(A.c([s,k,A.akB(A.akm(A.a4(d),new A.aaC(g),j),0.8),A.d2(f,f,n),A.a3v("assets/logos/fun.svg",A.a4(d),m,m)],r),B.T,B.dk,B.as)],r),B.T,B.a_),f,f,f,new A.bh(n,n,n,n),f)],r),B.T,B.a_),B.bG)
+s=r}return A.ajZ(q,c,A.aiM(s,3,0.5,!0,!0))},
 Ui(a,b,c,d,e,f,g){var s,r,q,p=this,o=null,n=4294823923,m=p.Ap(a),l=m?p.vg():o
 if(m)A.iI().$1("Current slot for "+a+": "+A.i(l))
 if(m){s=A.rA(8)
@@ -35816,43 +35817,44 @@ if(s>=18&&s<20)return 6
 return null},
 S(a3){var s,r,q,p,o,n,m,l,k,j,i,h,g=this,f=null,e=4285563456,d=t.w,c=A.cj(a3,f,d).w.a.a,b=A.cj(a3,f,d).w.a.b,a=c*0.12,a0=b*0.06,a1=a0*0.13,a2=c*0.017
 d=A.a4(4294966256)
-s=t.E
-r=A.ahm(B.z,A.hu(A.c([A.jv("CourseMatch",A.et(f,f,A.a4(e),f,f,f,f,f,"Sableklish",f,f,c*0.035,f,f,f,f,f,!0,f,f,f,f,f,f,f,f),f),A.d2(f,f,12),A.aeI(f,f,A.DQ(B.E2,A.a4(e),f,f),f,f,new A.aat(a3),f,f,"Dark mode")],s),B.T,B.dk,B.as))
+s=c*0.03
+r=t.E
+q=A.ahm(B.z,A.hu(A.c([A.jv("CourseMatch",A.et(f,f,A.a4(e),f,f,f,f,f,"Sableklish",f,f,c*0.035,f,f,f,f,f,!0,f,f,f,f,f,f,f,f),f),A.d2(f,f,8),A.aeI(f,f,A.DQ(B.E2,A.a4(e),f,s),f,f,new A.aat(a3),f,f,"Dark mode")],r),B.T,B.dk,B.as))
 if(g.d.length===0)s=B.ko
-else{q=c*0.04
-p=b*0.01
-o=A.a4(e)
-o=A.af(B.c.a_(25.5),o.u()>>>16&255,o.u()>>>8&255,o.u()&255)
-n=c*0.05
-m=A.rA(n)
-l=Date.now()
-k=g.x
+else{p=c*0.04
+o=b*0.01
+n=A.a4(e)
+n=A.af(B.c.a_(25.5),n.u()>>>16&255,n.u()>>>8&255,n.u()&255)
+m=c*0.05
+l=A.rA(m)
+k=Date.now()
+j=g.x
+j===$&&A.a()
+i=B.c.iP(B.f.cZ(new A.dc(k,0,!1).d2(j).a,864e8)/7)+1
+h=i>0?i:1
+k=g.w
 k===$&&A.a()
-j=B.c.iP(B.f.cZ(new A.dc(l,0,!1).d2(k).a,864e8)/7)+1
-i=j>0?j:1
-l=g.w
-l===$&&A.a()
-l=l?"Odd":"Even"
-p=A.jW(A.dw(A.jv(l+" Week (Week "+i+")",A.et(f,f,A.a4(e),f,f,f,f,f,f,f,f,a2,f,f,B.aw,f,f,!0,f,f,f,f,f,f,f,f),f),new A.ca(o,f,f,m,f,f,B.ao),f,f,new A.bh(q,p,q,p),f),f,f)
-m=b*0.02
-o=A.d2(f,m,f)
-l=g.ks()
-k=A.X(l).h("a2<1,d0>")
-l=A.P(new A.a2(l,new A.aau(g,c,c*0.025,c*0.015),k),k.h("al.E"))
-p=A.lN(A.c([p,o,A.wK(A.hu(l,B.T,B.a_,B.as),B.aI)],s),B.T,B.a_)
-o=A.c([A.d2(f,f,a*0.8)],s)
-l=g.e
-B.b.B(o,new A.a2(l,new A.aav(a,a2),A.X(l).h("a2<1,j>")))
-m=A.c([A.hu(o,B.T,B.a_,B.as),A.d2(f,m,f)],s)
-o=g.y
-B.b.B(m,new A.a2(o,new A.aaw(g,a,a0,a*0.35,a1,a1*0.7,a2),A.X(o).h("a2<1,j>")))
-m=A.wK(new A.d0(new A.bh(q,q,q,q),A.lN(m,B.bv,B.a_),f),B.aI)
-o=c*0.02
-l=c*0.03
-l=A.a3v("assets/logos/class.svg",f,l,l)
-k=A.d2(f,f,o)
-h=g.r
-s=A.wK(A.lN(A.c([new A.d0(new A.bh(q,q,q,q),p,f),m,A.dw(A.lN(A.c([A.hu(A.c([l,k,A.akB(A.akm(A.a4(e),new A.aax(g),h),0.8),A.d2(f,f,o),A.a3v("assets/logos/fun.svg",f,n,n)],s),B.T,B.dk,B.as)],s),B.T,B.a_),f,f,f,new A.bh(o,o,o,o),f)],s),B.T,B.a_),B.bG)}return A.ajZ(r,d,A.aiM(s,3,0.5,!0,!0))},
+k=k?"Odd":"Even"
+o=A.jW(A.dw(A.jv(k+" Week (Week "+h+")",A.et(f,f,A.a4(e),f,f,f,f,f,f,f,f,a2,f,f,B.aw,f,f,!0,f,f,f,f,f,f,f,f),f),new A.ca(n,f,f,l,f,f,B.ao),f,f,new A.bh(p,o,p,o),f),f,f)
+l=b*0.02
+n=A.d2(f,l,f)
+k=g.ks()
+j=A.X(k).h("a2<1,d0>")
+k=A.P(new A.a2(k,new A.aau(g,c,c*0.025,c*0.015),j),j.h("al.E"))
+o=A.lN(A.c([o,n,A.wK(A.hu(k,B.T,B.a_,B.as),B.aI)],r),B.T,B.a_)
+n=A.c([A.d2(f,f,a*0.8)],r)
+k=g.e
+B.b.B(n,new A.a2(k,new A.aav(a,a2),A.X(k).h("a2<1,j>")))
+l=A.c([A.hu(n,B.T,B.a_,B.as),A.d2(f,l,f)],r)
+n=g.y
+B.b.B(l,new A.a2(n,new A.aaw(g,a,a0,a*0.35,a1,a1*0.7,a2),A.X(n).h("a2<1,j>")))
+l=A.wK(new A.d0(new A.bh(p,p,p,p),A.lN(l,B.bv,B.a_),f),B.aI)
+n=c*0.02
+s=A.a3v("assets/logos/class.svg",f,s,s)
+k=A.d2(f,f,n)
+j=g.r
+r=A.wK(A.lN(A.c([new A.d0(new A.bh(p,p,p,p),o,f),l,A.dw(A.lN(A.c([A.hu(A.c([s,k,A.akB(A.akm(A.a4(e),new A.aax(g),j),0.8),A.d2(f,f,n),A.a3v("assets/logos/fun.svg",f,m,m)],r),B.T,B.dk,B.as)],r),B.T,B.a_),f,f,f,new A.bh(n,n,n,n),f)],r),B.T,B.a_),B.bG)
+s=r}return A.ajZ(q,d,A.aiM(s,3,0.5,!0,!0))},
 Tf(a,b,c,d,e,f,g){var s,r,q=this,p=null,o=q.Ap(a),n=o?q.vg():p
 if(o)A.iI().$1("Current slot for "+a+": "+A.i(n))
 if(o){s=A.rA(8)
@@ -35883,7 +35885,7 @@ $S:35}
 A.aaH.prototype={
 $0(){var s=this.a.f,r=this.b
 if(B.b.p(s,r))B.b.C(s,r)
-else if(s.length<2)s.push(r)
+else if(s.length<5)s.push(r)
 else{B.b.i6(s,0)
 s.push(r)}},
 $S:0}
