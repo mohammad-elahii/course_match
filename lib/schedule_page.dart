@@ -4,10 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SchedulePage extends StatefulWidget {
-  const SchedulePage({super.key, required this.title, this.onToggleTheme, this.isDark = false});
+  const SchedulePage({super.key, required this.title});
   final String title;
-  final VoidCallback? onToggleTheme;
-  final bool isDark;
 
   @override
   State<SchedulePage> createState() => _SchedulePageState();
@@ -208,12 +206,6 @@ class _SchedulePageState extends State<SchedulePage> {
                 fontFamily: 'Sableklish',
                 fontSize: screenWidth * 0.035,
               ),
-            ),
-            SizedBox(width: 12),
-            IconButton(
-              tooltip: 'Toggle theme',
-              icon: Icon(widget.isDark ? Icons.dark_mode : Icons.light_mode, color: Color(0xFF708240)),
-              onPressed: widget.onToggleTheme,
             ),
           ],
         ),
@@ -504,7 +496,7 @@ class _SchedulePageState extends State<SchedulePage> {
                     ),
                     if (showPointer)
                       Positioned(
-                        top: -fontSize * 1.2,
+                        top: -fontSize * 1,
                         left: 0,
                         right: 0,
                         child: Icon(Icons.arrow_drop_down, color: Colors.grey[800], size: fontSize * 2.5),

@@ -11,12 +11,20 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:course_match/main.dart';
 
 void main() {
-  testWidgets('App smoke test renders title', (WidgetTester tester) async {
-    // Build the app with a concrete initial theme mode and trigger a frame.
-    await tester.pumpWidget(MyApp(initialMode: ThemeMode.light));
-    await tester.pumpAndSettle();
+  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(const MyApp());
 
-    // Verify that the title appears.
-    expect(find.text('CourseMatch'), findsOneWidget);
+    // Verify that our counter starts at 0.
+    expect(find.text('0'), findsOneWidget);
+    expect(find.text('1'), findsNothing);
+
+    // Tap the '+' icon and trigger a frame.
+    await tester.tap(find.byIcon(Icons.add));
+    await tester.pump();
+
+    // Verify that our counter has incremented.
+    expect(find.text('0'), findsNothing);
+    expect(find.text('1'), findsOneWidget);
   });
 }
