@@ -35564,7 +35564,7 @@ o=p.h("df<1,jX>")
 r=A.Q(new A.df(new A.aK(q,new A.a9U(r),p.h("aK<1>")),new A.a9V(r,m.f,j,m.x),o),o.h("w.E"))
 i=A.c([A.iP(A.rF(A.ak4(r,4,4),l,l),new A.d7(l,l,s,l,l,l,B.aQ),i,l,l,m.w)],t.af)
 if(h){s=m.y
-i.push(A.aiS(-s*1.2,A.ahM(B.DY,B.ec,l,s*2.5),l,l,0,0,l,l))}return A.a2K(B.jC,i,B.iW)}else return A.iP(l,l,i,l,l,0)}},
+i.push(A.aiS(l,A.ahM(B.DY,B.ec,l,s*2.5),l,l,0,0,-s,l))}return A.a2K(B.jC,i,B.iW)}else return A.iP(l,l,i,l,l,0)}},
 $S:189}
 A.a9S.prototype={
 $1(a){var s=this.a.f
@@ -53565,7 +53565,7 @@ s=q.f
 r=p.w!=s
 if(r)p.w=s
 s=q.r
-if(p.e!=s){p.e=s
+if(p.e!==s){p.e=s
 r=!0}s=q.w
 if(p.f!=s){p.f=s
 r=!0}s=q.x
