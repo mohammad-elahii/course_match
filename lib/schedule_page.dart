@@ -211,166 +211,160 @@ class _SchedulePageState extends State<SchedulePage> {
         ),
         backgroundColor: Colors.transparent,
       ),
-      body: Center(
-        child: InteractiveViewer(
-          minScale: 0.5,
-          maxScale: 3.0,
-          panEnabled: true,
-          scaleEnabled: true,
-          child: Container(
-            width: screenWidth,
-            child: students.isEmpty
-                ? const Center(child: CircularProgressIndicator())
-                : SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(screenWidth * 0.04),
-                          child: Column(
-                            children: [
-                              // Current week indicator
-                              Center(
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: screenWidth * 0.04,
-                                    vertical: screenHeight * 0.01,
+      body: InteractiveViewer(
+        minScale: 0.5,
+        maxScale: 3.0,
+        panEnabled: true,
+        scaleEnabled: true,
+        child: students.isEmpty
+            ? const Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(screenWidth * 0.04),
+                      child: Column(
+                        children: [
+                          // Current week indicator
+                          Center(
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: screenWidth * 0.04,
+                                vertical: screenHeight * 0.01,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Color(0xFF708240).withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(screenWidth * 0.05),
+                              ),
+                              child: Text(
+                                getCurrentWeekType(),
+                                style: TextStyle(
+                                  color: Color(0xFF708240),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: fontSize,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: screenHeight * 0.02),
+                          // Student selection
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: getFilteredStudents().map((student) => Padding(
+                                padding: EdgeInsets.all(screenWidth * 0.01),
+                                child: InkWell(
+                                  onTap: () => toggleStudentSelection(student['name']),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: studentIconSize,
+                                        height: studentIconSize,
+                                        decoration: BoxDecoration(
+                                          color: getColorFromString(student['color']),
+                                          shape: BoxShape.circle,
+                                          border: selectedStudents.contains(student['name'])
+                                              ? Border.all(color: Colors.black, width: screenWidth * 0.001)
+                                              : null,
+                                        ),
+                                      ),
+                                      SizedBox(width: screenWidth * 0.01),
+                                      Text(
+                                        student['name'],
+                                        style: TextStyle(
+                                          fontWeight: selectedStudents.contains(student['name'])
+                                              ? FontWeight.bold
+                                              : FontWeight.normal,
+                                          fontSize: studentNameFontSize,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFF708240).withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(screenWidth * 0.05),
-                                  ),
+                                ),
+                              )).toList(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Schedule table
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Padding(
+                        padding: EdgeInsets.all(screenWidth * 0.04),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                SizedBox(width: timeSlotWidth * 0.8),
+                                ...timeSlots.map((time) => SizedBox(
+                                  width: timeSlotWidth,
                                   child: Text(
-                                    getCurrentWeekType(),
+                                    time,
                                     style: TextStyle(
-                                      color: Color(0xFF708240),
                                       fontWeight: FontWeight.bold,
                                       fontSize: fontSize,
                                     ),
+                                    textAlign: TextAlign.center,
                                   ),
-                                ),
-                              ),
-                              SizedBox(height: screenHeight * 0.02),
-                              // Student selection
-                              SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  children: getFilteredStudents().map((student) => Padding(
-                                    padding: EdgeInsets.all(screenWidth * 0.01),
-                                    child: InkWell(
-                                      onTap: () => toggleStudentSelection(student['name']),
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            width: studentIconSize,
-                                            height: studentIconSize,
-                                            decoration: BoxDecoration(
-                                              color: getColorFromString(student['color']),
-                                              shape: BoxShape.circle,
-                                              border: selectedStudents.contains(student['name'])
-                                                  ? Border.all(color: Colors.black, width: screenWidth * 0.001)
-                                                  : null,
-                                            ),
-                                          ),
-                                          SizedBox(width: screenWidth * 0.01),
-                                          Text(
-                                            student['name'],
-                                            style: TextStyle(
-                                              fontWeight: selectedStudents.contains(student['name'])
-                                                  ? FontWeight.bold
-                                                  : FontWeight.normal,
-                                              fontSize: studentNameFontSize,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  )).toList(),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        // Schedule table
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Padding(
-                            padding: EdgeInsets.all(screenWidth * 0.04),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    SizedBox(width: timeSlotWidth * 0.8),
-                                    ...timeSlots.map((time) => SizedBox(
-                                      width: timeSlotWidth,
-                                      child: Text(
-                                        time,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: fontSize,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    )),
-                                  ],
-                                ),
-                                SizedBox(height: screenHeight * 0.02),
-                                ...days.map((day) => _buildDayRow(
-                                  day,
-                                  timeSlotWidth,
-                                  timeSlotHeight,
-                                  restSlotWidth,
-                                  dotSize,
-                                  restDotSize,
-                                  fontSize,
                                 )),
                               ],
                             ),
-                          ),
+                            SizedBox(height: screenHeight * 0.02),
+                            ...days.map((day) => _buildDayRow(
+                              day,
+                              timeSlotWidth,
+                              timeSlotHeight,
+                              restSlotWidth,
+                              dotSize,
+                              restDotSize,
+                              fontSize,
+                            )),
+                          ],
                         ),
-                        // Bottom switch control
-                        Container(
-                          padding: EdgeInsets.all(screenWidth * 0.02),
-                          child: Column(
+                      ),
+                    ),
+                    // Bottom switch control
+                    Container(
+                      padding: EdgeInsets.all(screenWidth * 0.02),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/logos/class.svg',
-                                    width: screenWidth * 0.03,
-                                    height: screenWidth * 0.03,
-                                  ),
-                                  SizedBox(width: screenWidth * 0.02),
-                                  Transform.scale(
-                                    scale: 0.8,
-                                    child: Switch(
-                                      value: showRestTime,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          showRestTime = value;
-                                        });
-                                      },
-                                      activeColor: Color(0xFF708240),
-                                    ),
-                                  ),
-                                  SizedBox(width: screenWidth * 0.02),
-                                  SvgPicture.asset(
-                                    'assets/logos/fun.svg',
-                                    width: screenWidth * 0.05,
-                                    height: screenWidth * 0.05,
-                                  ),
-                                ],
+                              SvgPicture.asset(
+                                'assets/logos/class.svg',
+                                width: screenWidth * 0.03,
+                                height: screenWidth * 0.03,
+                              ),
+                              SizedBox(width: screenWidth * 0.02),
+                              Transform.scale(
+                                scale: 0.8,
+                                child: Switch(
+                                  value: showRestTime,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      showRestTime = value;
+                                    });
+                                  },
+                                  activeColor: Color(0xFF708240),
+                                ),
+                              ),
+                              SizedBox(width: screenWidth * 0.02),
+                              SvgPicture.asset(
+                                'assets/logos/fun.svg',
+                                width: screenWidth * 0.05,
+                                height: screenWidth * 0.05,
                               ),
                             ],
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-          ),
-        ),
+              ),
       ),
     );
   }
