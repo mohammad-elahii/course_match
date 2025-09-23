@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'dark_schedule_page.dart';
+import 'package:course_match/schedule_page.dart';
 
-class SchedulePage extends StatefulWidget {
-  const SchedulePage({super.key, required this.title});
+class DarkSchedulePage extends StatefulWidget {
+  const DarkSchedulePage({super.key, required this.title});
   final String title;
 
   @override
-  State<SchedulePage> createState() => _SchedulePageState();
+  State<DarkSchedulePage> createState() => _SchedulePageState();
 }
 
-class _SchedulePageState extends State<SchedulePage> {
+class _SchedulePageState extends State<DarkSchedulePage> {
   List<Map<String, dynamic>> students = [];
   List<String> timeSlots = [];
   List<String> selectedStudents = [];
@@ -154,7 +154,7 @@ class _SchedulePageState extends State<SchedulePage> {
       if (selectedStudents.contains(studentName)) {
         selectedStudents.remove(studentName);
       } else {
-        if (selectedStudents.length < 2) {
+        if (selectedStudents.length < 5) {
           selectedStudents.add(studentName);
         } else {
           // If already 2 students selected, remove the first one and add the new one
@@ -182,7 +182,7 @@ class _SchedulePageState extends State<SchedulePage> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    
+
     // Calculate responsive sizes
     final timeSlotWidth = screenWidth * 0.12; // 12% of screen width
     final timeSlotHeight = screenHeight * 0.06; // 6% of screen height
@@ -195,7 +195,7 @@ class _SchedulePageState extends State<SchedulePage> {
     final studentNameFontSize = screenWidth * 0.015; // 1.5% of screen width for student names
 
     return Scaffold(
-      backgroundColor: Color(0xFFFFFBF0),
+      backgroundColor: Color(0xFF37353E),
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -203,20 +203,19 @@ class _SchedulePageState extends State<SchedulePage> {
             Text(
               'CourseMatch',
               style: TextStyle(
-                color: Color(0xFF708240),
+                color: Color(0xFF715A5A),
                 fontFamily: 'Sableklish',
                 fontSize: screenWidth * 0.035,
               ),
             ),
             SizedBox(width: 12),
             IconButton(
-              tooltip: 'Dark mode',
-              icon: Icon(Icons.dark_mode, color: Color(0xFF708240)),
+              tooltip: 'Light mode',
+              icon: Icon(Icons.light_mode, color: Color(0xFF715A5A)),
               onPressed: () {
-                Navigator.push(
-                  context,
+                Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const DarkSchedulePage(title: 'CourseMatch'),
+                    builder: (_) => const SchedulePage(title: 'CourseMatch'),
                   ),
                 );
               },
@@ -233,152 +232,154 @@ class _SchedulePageState extends State<SchedulePage> {
         child: students.isEmpty
             ? const Center(child: CircularProgressIndicator())
             : SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(screenWidth * 0.04),
                 child: Column(
                   children: [
-                    Padding(
-                      padding: EdgeInsets.all(screenWidth * 0.04),
-                      child: Column(
-                        children: [
-                          // Current week indicator
-                          Center(
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: screenWidth * 0.04,
-                                vertical: screenHeight * 0.01,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Color(0xFF708240).withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(screenWidth * 0.05),
-                              ),
-                              child: Text(
-                                getCurrentWeekType(),
-                                style: TextStyle(
-                                  color: Color(0xFF708240),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: fontSize,
-                                ),
-                              ),
-                            ),
+                    // Current week indicator
+                    Center(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: screenWidth * 0.04,
+                          vertical: screenHeight * 0.01,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Color(0xFFD3DAD9).withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(screenWidth * 0.05),
+                        ),
+                        child: Text(
+                          getCurrentWeekType(),
+                          style: TextStyle(
+                            color: Color(0xFFD3DAD9),
+                            fontWeight: FontWeight.bold,
+                            fontSize: fontSize,
                           ),
-                          SizedBox(height: screenHeight * 0.02),
-                          // Student selection
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: getFilteredStudents().map((student) => Padding(
-                                padding: EdgeInsets.all(screenWidth * 0.01),
-                                child: InkWell(
-                                  onTap: () => toggleStudentSelection(student['name']),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        width: studentIconSize,
-                                        height: studentIconSize,
-                                        decoration: BoxDecoration(
-                                          color: getColorFromString(student['color']),
-                                          shape: BoxShape.circle,
-                                          border: selectedStudents.contains(student['name'])
-                                              ? Border.all(color: Colors.black, width: screenWidth * 0.001)
-                                              : null,
-                                        ),
-                                      ),
-                                      SizedBox(width: screenWidth * 0.01),
-                                      Text(
-                                        student['name'],
-                                        style: TextStyle(
-                                          fontWeight: selectedStudents.contains(student['name'])
-                                              ? FontWeight.bold
-                                              : FontWeight.normal,
-                                          fontSize: studentNameFontSize,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              )).toList(),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    // Schedule table
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Padding(
-                        padding: EdgeInsets.all(screenWidth * 0.04),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                SizedBox(width: timeSlotWidth * 0.8),
-                                ...timeSlots.map((time) => SizedBox(
-                                  width: timeSlotWidth,
-                                  child: Text(
-                                    time,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: fontSize,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                )),
-                              ],
-                            ),
-                            SizedBox(height: screenHeight * 0.02),
-                            ...days.map((day) => _buildDayRow(
-                              day,
-                              timeSlotWidth,
-                              timeSlotHeight,
-                              restSlotWidth,
-                              dotSize,
-                              restDotSize,
-                              fontSize,
-                            )),
-                          ],
                         ),
                       ),
                     ),
-                    // Bottom switch control
-                    Container(
-                      padding: EdgeInsets.all(screenWidth * 0.02),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                'assets/logos/class.svg',
-                                width: screenWidth * 0.03,
-                                height: screenWidth * 0.03,
-                              ),
-                              SizedBox(width: screenWidth * 0.02),
-                              Transform.scale(
-                                scale: 0.8,
-                                child: Switch(
-                                  value: showRestTime,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      showRestTime = value;
-                                    });
-                                  },
-                                  activeColor: Color(0xFF708240),
+                    SizedBox(height: screenHeight * 0.02),
+                    // Student selection
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: getFilteredStudents().map((student) => Padding(
+                          padding: EdgeInsets.all(screenWidth * 0.01),
+                          child: InkWell(
+                            onTap: () => toggleStudentSelection(student['name']),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: studentIconSize,
+                                  height: studentIconSize,
+                                  decoration: BoxDecoration(
+                                    color: getColorFromString(student['color']),
+                                    shape: BoxShape.circle,
+                                    border: selectedStudents.contains(student['name'])
+                                        ? Border.all(color: Color(0xFFD3DAD9), width: screenWidth * 0.005)
+                                        : null,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(width: screenWidth * 0.02),
-                              SvgPicture.asset(
-                                'assets/logos/fun.svg',
-                                width: screenWidth * 0.05,
-                                height: screenWidth * 0.05,
-                              ),
-                            ],
+                                SizedBox(width: screenWidth * 0.01),
+                                Text(
+                                  student['name'],
+                                  style: TextStyle(
+                                    color: Color(0xFFD3DAD9),
+                                    fontWeight: selectedStudents.contains(student['name'])
+                                        ? FontWeight.bold
+                                        : FontWeight.normal,
+                                    fontSize: studentNameFontSize,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ],
+                        )).toList(),
                       ),
                     ),
                   ],
                 ),
               ),
+              // Schedule table
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Padding(
+                  padding: EdgeInsets.all(screenWidth * 0.04),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(width: timeSlotWidth * 0.8),
+                          ...timeSlots.map((time) => SizedBox(
+                            width: timeSlotWidth,
+                            child: Text(
+                              time,
+                              style: TextStyle(
+                                color: Color(0xFFD3DAD9),
+                                fontWeight: FontWeight.bold,
+                                fontSize: fontSize,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          )),
+                        ],
+                      ),
+                      SizedBox(height: screenHeight * 0.02),
+                      ...days.map((day) => _buildDayRow(
+                        day,
+                        timeSlotWidth,
+                        timeSlotHeight,
+                        restSlotWidth,
+                        dotSize,
+                        restDotSize,
+                        fontSize,
+                      )),
+                    ],
+                  ),
+                ),
+              ),
+              // Bottom switch control
+              Container(
+                padding: EdgeInsets.all(screenWidth * 0.02),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          'assets/logos/class.svg',
+                          width: screenWidth * 0.03,
+                          height: screenWidth * 0.03,
+                        ),
+                        SizedBox(width: screenWidth * 0.02),
+                        Transform.scale(
+                          scale: 0.8,
+                          child: Switch(
+                            value: showRestTime,
+                            onChanged: (value) {
+                              setState(() {
+                                showRestTime = value;
+                              });
+                            },
+                            activeColor: Color(0xFFD3DAD9),
+                          ),
+                        ),
+                        SizedBox(width: screenWidth * 0.02),
+                        SvgPicture.asset(
+                          'assets/logos/fun.svg',
+                          width: screenWidth * 0.05,
+                          height: screenWidth * 0.05,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -389,14 +390,14 @@ class _SchedulePageState extends State<SchedulePage> {
   }
 
   Widget _buildDayRow(
-    String day,
-    double timeSlotWidth,
-    double timeSlotHeight,
-    double restSlotWidth,
-    double dotSize,
-    double restDotSize,
-    double fontSize,
-  ) {
+      String day,
+      double timeSlotWidth,
+      double timeSlotHeight,
+      double restSlotWidth,
+      double dotSize,
+      double restDotSize,
+      double fontSize,
+      ) {
     final isToday = isCurrentDay(day);
     final currentSlot = isToday ? getCurrentTimeSlotIndex() : null;
     if (isToday) {
@@ -410,7 +411,7 @@ class _SchedulePageState extends State<SchedulePage> {
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
-              color: Color(0xFFE3EF9A).withOpacity(0.5),
+              color: Color(0xFFD3DAD9).withOpacity(0.5),
               blurRadius: 8,
               spreadRadius: 1,
             )
@@ -424,7 +425,7 @@ class _SchedulePageState extends State<SchedulePage> {
                 day,
                 style: TextStyle(
                   fontWeight: isToday ? FontWeight.bold : FontWeight.normal,
-                  color: isToday ? Color(0xFF708240) : Colors.black,
+                  color: isToday ? Color(0xFFD3DAD9) : Color(0xFFD3DAD9).withOpacity(0.5),
                   fontSize: fontSize,
                 ),
               ),
@@ -445,7 +446,7 @@ class _SchedulePageState extends State<SchedulePage> {
                     color: Colors.grey.withOpacity(0.1),
                     boxShadow: isToday ? [
                       BoxShadow(
-                        color: Color(0xFFE3EF9A).withOpacity(0.8),
+                        color: Color(0xFFD3DAD9).withOpacity(0.8),
                         blurRadius: 4,
                         spreadRadius: 0,
                       )
@@ -513,7 +514,7 @@ class _SchedulePageState extends State<SchedulePage> {
                         top: -fontSize * 1,
                         left: 0,
                         right: 0,
-                        child: Icon(Icons.arrow_drop_down, color: Colors.grey[800], size: fontSize * 2.5),
+                        child: Icon(Icons.arrow_drop_down, color: Color(0xFFD3DAD9), size: fontSize * 2.5),
                       ),
                   ],
                 );
