@@ -208,10 +208,10 @@ class _SchedulePageState extends State<DarkSchedulePage> {
                 fontSize: screenWidth * 0.035,
               ),
             ),
-            SizedBox(width: 12),
+            SizedBox(width: 8),
             IconButton(
               tooltip: 'Light mode',
-              icon: Icon(Icons.light_mode, color: Color(0xFFc297b8)),
+              icon: Icon(Icons.light_mode, color: Color(0xFFc297b8), size: screenWidth * 0.03),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,

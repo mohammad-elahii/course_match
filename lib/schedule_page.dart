@@ -154,7 +154,7 @@ class _SchedulePageState extends State<SchedulePage> {
       if (selectedStudents.contains(studentName)) {
         selectedStudents.remove(studentName);
       } else {
-        if (selectedStudents.length < 2) {
+        if (selectedStudents.length < 5) {
           selectedStudents.add(studentName);
         } else {
           // If already 2 students selected, remove the first one and add the new one
@@ -208,10 +208,10 @@ class _SchedulePageState extends State<SchedulePage> {
                 fontSize: screenWidth * 0.035,
               ),
             ),
-            SizedBox(width: 12),
+            SizedBox(width: 8),
             IconButton(
               tooltip: 'Dark mode',
-              icon: Icon(Icons.dark_mode, color: Color(0xFF708240)),
+              icon: Icon(Icons.dark_mode, color: Color(0xFF708240) , size: screenWidth * 0.03,),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
