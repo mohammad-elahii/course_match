@@ -20,14 +20,7 @@ class _SchedulePageState extends State<DarkSchedulePage> {
   late bool isOddWeek;
 
   // Always set semester start date to next Saturday
-  DateTime getNextSaturday() {
-    final now = DateTime.now();
-    int daysUntilSaturday = (6 - now.weekday + 7) % 7;
-    if (daysUntilSaturday == 0) daysUntilSaturday = 7; // Always next week
-    final nextSat = DateTime(now.year, now.month, now.day).add(Duration(days: daysUntilSaturday));
-    debugPrint('Semester start date set to: ' + nextSat.toString());
-    return nextSat;
-  }
+  // Removed unused getNextSaturday()
   late DateTime semesterStartDate;
 
   // Remove zoomLevel and zoom controls
@@ -67,7 +60,7 @@ class _SchedulePageState extends State<DarkSchedulePage> {
   @override
   void initState() {
     super.initState();
-    semesterStartDate = getNextSaturday();
+    semesterStartDate = DateTime(2025, 9, 27); // Fixed semester start date
     isOddWeek = determineWeekType();
     loadStudentData();
   }
@@ -86,6 +79,10 @@ class _SchedulePageState extends State<DarkSchedulePage> {
         return Color(0xFF708240);
       case 'code6':
         return Color(0xFF008080);
+      case 'code7':
+        return Color.fromARGB(255, 115, 30, 227);
+      case 'code8':
+        return Color(0xFFF25912);
       default:
         return Colors.grey;
     }
@@ -154,7 +151,7 @@ class _SchedulePageState extends State<DarkSchedulePage> {
       if (selectedStudents.contains(studentName)) {
         selectedStudents.remove(studentName);
       } else {
-        if (selectedStudents.length < 5) {
+        if (selectedStudents.length <7) {
           selectedStudents.add(studentName);
         } else {
           // If already 2 students selected, remove the first one and add the new one
@@ -191,7 +188,6 @@ class _SchedulePageState extends State<DarkSchedulePage> {
     final restDotSize = dotSize * 0.7; // 70% of dot size
     final studentIconSize = screenWidth * 0.025; // 2.5% of screen width for student icons
     final fontSize = screenWidth * 0.017; // 1.7% of screen width for general text
-    final titleFontSize = screenWidth * 0.035; // 3.5% of screen width for title
     final studentNameFontSize = screenWidth * 0.015; // 1.5% of screen width for student names
 
     return Scaffold(
@@ -408,28 +404,40 @@ class _SchedulePageState extends State<DarkSchedulePage> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Container(
-        decoration: isToday ? BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-              color: Color(0xFFfdcff3).withOpacity(0.5),
-              blurRadius: 8,
-              spreadRadius: 1,
-            )
-          ],
-        ) : null,
+        // Removed isToday boxShadow here—moved to Text container below
         child: Row(
           children: [
             SizedBox(
               width: timeSlotWidth * 0.8,
-              child: Text(
-                day,
-                style: TextStyle(
-                  fontWeight: isToday ? FontWeight.bold : FontWeight.normal,
-                  color: isToday ? Color(0xFFfdcff3) : Color(0xFFfdcff3).withOpacity(0.5),
-                  fontSize: fontSize,
-                ),
-              ),
+              child: isToday
+                  ? Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xFFfdcff3).withOpacity(0.5),
+                            blurRadius: 50,
+                            spreadRadius:1,
+                            offset: Offset(-5, 3),
+                          ),
+                        ],
+                      ),
+                      child: Text(
+                        day,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFFfdcff3),
+                          fontSize: fontSize,
+                        ),
+                      ),
+                    )
+                  : Text(
+                      day,
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        color: Color(0xFFfdcff3).withOpacity(0.5),
+                        fontSize: fontSize,
+                      ),
+                    ),
             ),
             ...List.generate(timeSlots.length * 2 - 1, (index) {
               bool isRestSlot = index.isOdd;

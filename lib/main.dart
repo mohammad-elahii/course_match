@@ -1,3 +1,4 @@
+import 'package:course_match/dark_schedule_page.dart';
 import 'package:flutter/material.dart';
 import 'package:course_match/schedule_page.dart';
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF708240)),
         useMaterial3: true,
       ),
-      home: const SchedulePage(title: 'CourseMatch'),
+      home: const DarkSchedulePage(title: 'CourseMatch'),
       debugShowCheckedModeBanner: false,
     );
   }

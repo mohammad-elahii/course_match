@@ -67,7 +67,7 @@ class _SchedulePageState extends State<SchedulePage> {
   @override
   void initState() {
     super.initState();
-    semesterStartDate = getNextSaturday();
+    semesterStartDate = DateTime(2025, 9, 27); // Fixed semester start date
     isOddWeek = determineWeekType();
     loadStudentData();
   }
@@ -86,6 +86,10 @@ class _SchedulePageState extends State<SchedulePage> {
         return Color(0xFF708240);
       case 'code6':
         return Color(0xFF008080);
+      case 'code7':
+        return Color(0xFF450693);
+      case 'code8':
+        return Color(0xFFF25912);  
       default:
         return Colors.grey;
     }
@@ -154,7 +158,7 @@ class _SchedulePageState extends State<SchedulePage> {
       if (selectedStudents.contains(studentName)) {
         selectedStudents.remove(studentName);
       } else {
-        if (selectedStudents.length < 5) {
+        if (selectedStudents.length < 7) {
           selectedStudents.add(studentName);
         } else {
           // If already 2 students selected, remove the first one and add the new one
@@ -191,7 +195,6 @@ class _SchedulePageState extends State<SchedulePage> {
     final restDotSize = dotSize * 0.7; // 70% of dot size
     final studentIconSize = screenWidth * 0.025; // 2.5% of screen width for student icons
     final fontSize = screenWidth * 0.017; // 1.7% of screen width for general text
-    final titleFontSize = screenWidth * 0.035; // 3.5% of screen width for title
     final studentNameFontSize = screenWidth * 0.015; // 1.5% of screen width for student names
 
     return Scaffold(
@@ -404,28 +407,40 @@ class _SchedulePageState extends State<SchedulePage> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Container(
-        decoration: isToday ? BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-              color: Color(0xFFE3EF9A).withOpacity(0.5),
-              blurRadius: 8,
-              spreadRadius: 1,
-            )
-          ],
-        ) : null,
+        // Removed isToday boxShadow here—moved to Text container below
         child: Row(
           children: [
             SizedBox(
               width: timeSlotWidth * 0.8,
-              child: Text(
-                day,
-                style: TextStyle(
-                  fontWeight: isToday ? FontWeight.bold : FontWeight.normal,
-                  color: isToday ? Color(0xFF708240) : Colors.black,
-                  fontSize: fontSize,
-                ),
-              ),
+              child: isToday
+                  ? Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xFFE3EF9A).withOpacity(1),
+                           blurRadius: 50,
+                            spreadRadius:1,
+                            offset: Offset(-5, 3),
+                          ),
+                        ],
+                      ),
+                      child: Text(
+                        day,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF708240),
+                          fontSize: fontSize,
+                        ),
+                      ),
+                    )
+                  : Text(
+                      day,
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black,
+                        fontSize: fontSize,
+                      ),
+                    ),
             ),
             ...List.generate(timeSlots.length * 2 - 1, (index) {
               bool isRestSlot = index.isOdd;
