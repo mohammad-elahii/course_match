@@ -82,7 +82,7 @@ class _SchedulePageState extends State<DarkSchedulePage> {
       case 'code7':
         return Color.fromARGB(255, 115, 30, 227);
       case 'code8':
-        return Color(0xFFF25912);
+       return Color.fromARGB(255, 44, 247, 241);  
       default:
         return Colors.grey;
     }
