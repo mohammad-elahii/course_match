@@ -19,7 +19,7 @@
         "Saturday": [2,4,5,6],
         "Sunday": [],
         "Monday": [],
-        "Tuesday": [2,3,4],
+        "Tuesday": [2,4],
         "Wednesday": [5],
         "Thursday": [4,5]
       }
@@ -28,10 +28,10 @@
       "name": "Ali",
       "color": "code3",
       "schedule": {
-        "Saturday": [2,4,5,6],
+        "Saturday": [4,5,6],
         "Sunday": [6],
         "Monday": [6],
-        "Tuesday": [5,6],
+        "Tuesday": [2,5,6],
         "Wednesday": [4,5],
         "Thursday": []
       }
@@ -41,11 +41,11 @@
       "name": "Armin",
       "color": "code4",
       "schedule": {
-        "Saturday": [2,4,5,6],
+        "Saturday": [4,5,6],
         "Sunday": [],
-        "Monday": [4],
+        "Monday": [2,4],
         "Tuesday": [4],
-        "Wednesday": [4,5],
+        "Wednesday": [1,4,5],
         "Thursday": [1,2,3]
       }
     },
@@ -69,10 +69,35 @@
       "schedule": {
         "Saturday": [5,6],
         "Sunday": [],
-        "Monday": [4,5,6],
-        "Tuesday": [2,3,4,5,6],
+        "Monday": [2,4,5,6],
+        "Tuesday": [2,5,6],
         "Wednesday": [4,5],
         "Thursday": []
+      }
+    },
+    {
+      "name": "Armin-Hozh",
+      "color": "code7",
+      "schedule": {
+        "Saturday": [2,3,4,5,6],
+        "Sunday": [],
+        "Monday": [2,4],
+        "Tuesday": [3],
+        "Wednesday": [4,5],
+        "Thursday": [2,3,4,5]
+      }
+    },
+
+    {
+      "name": "Erfan-mow",
+      "color": "code8",
+      "schedule": {
+        "Saturday": [],
+        "Sunday": [1,2,4],
+        "Monday": [1],
+        "Tuesday": [1,2,6],
+        "Wednesday": [1,4],
+        "Thursday": [2]
       }
     }
   ],
