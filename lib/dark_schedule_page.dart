@@ -453,13 +453,6 @@ class _SchedulePageState extends State<DarkSchedulePage> {
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey.withOpacity(0.3)),
                     color: Colors.grey.withOpacity(0.1),
-                    boxShadow: isToday ? [
-                      BoxShadow(
-                        color: Color(0xFFfdcff3).withOpacity(0.8),
-                        blurRadius: 4,
-                        spreadRadius: 0,
-                      )
-                    ] : null,
                   ),
                   child: Center(
                     child: Wrap(

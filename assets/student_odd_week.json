@@ -54,9 +54,9 @@
       "name": "Erfan",
       "color": "code5",
       "schedule": {
-        "Saturday": [1,2,3,4,5],
+        "Saturday": [4,5,6],
         "Sunday": [2],
-        "Monday": [4],
+        "Monday": [4,6],
         "Tuesday": [],
         "Wednesday": [5,6],
         "Thursday": [1,2]
